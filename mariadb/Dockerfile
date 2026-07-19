@@ -1,6 +1,7 @@
 FROM debian:bookworm
 RUN apt update && apt install mariadb-server -y
-CMD ["mysqld"]
+COPY conf/start.sh /start.sh
+CMD ["sh", "/start.sh"]
 
 
 
