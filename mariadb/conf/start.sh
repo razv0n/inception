@@ -8,11 +8,11 @@ until mysqladmin ping --silent; do
 done
 
 mysql -u root <<EOF
-CREATE DATABASE IF NOT EXISTS database;
-CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'pass';
+CREATE DATABASE IF NOT EXISTS ${SQL_DATABASE};
+CREATE USER IF NOT EXISTS '${SQL_USER}'@'%' IDENTIFIED BY '$(cat /secrets/database_pass.txt)';
 GRANT ALL PRIVILEGES
-ON database.*
-TO 'user'@'%';
+ON ${SQL_DATABASE}.*
+TO '${SQL_USER}'@'%';
 EOF
 
 mysqladmin shutdown

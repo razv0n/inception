@@ -1,7 +1,8 @@
 FROM debian:bookworm
 RUN apt update && apt install mariadb-server -y
 COPY conf/start.sh /start.sh
-CMD ["sh", "/start.sh"]
+RUN chmod +x 
+CMD ["/start.sh"]
 
 
 
