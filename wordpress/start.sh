@@ -1,5 +1,10 @@
 #!/bin/sh
 cd /var/www/html
+
+set -e
+
+wp core download --allow-root
+
 wp   config create --dbname="${SQL_DATABASE}" \
                 --dbuser="${SQL_USER}" \
                 --dbpass="$(cat ../secrets/database_pass.txt)" \
@@ -15,3 +20,5 @@ wp core install --url="https://mfahmi.42.fr" \
 wp user create "${WP_USER}" "${WP_EMAIL}" \
     --role="${WP_ROLE}" \
     --user_pass="$(cat ../secrets/wp_pass.txt)"
+
+exec php-fpm -F
