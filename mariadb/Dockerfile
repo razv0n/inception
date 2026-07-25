@@ -1,7 +1,14 @@
 FROM debian:bookworm
+
 RUN apt update && apt install mariadb-server -y
-COPY conf/start.sh /start.sh
-RUN chmod +x 
+
+RUN sed -i 's/^bind-address.*/bind-address = 0.0.0.0/' \
+    /etc/mysql/mariadb.conf.d/50-server.cnf
+
+COPY ./start.sh /start.sh
+
+RUN chmod +x /start.sh
+
 CMD ["/start.sh"]
 
 

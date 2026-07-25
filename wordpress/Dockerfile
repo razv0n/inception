@@ -1,6 +1,6 @@
 FROM debian:bookworm
 
-RUN apt update && apt install -y php-fpm php php-mysql curl
+RUN apt update && apt install -y php-fpm php php-mysql curl mariadb-client
 
 RUN mkdir -p /var/www/html
 

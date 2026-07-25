@@ -1,0 +1,64 @@
+services:
+
+    mariadb:
+      build:
+        context: ./mariadb
+        dockerfile: Dockerfile
+      volumes:
+        - mariadbDatabase:/var/lib/mysql
+      networks:
+        - inception
+      restart: always
+      env_file:
+        - .env
+      secrets:
+        - database_pass
+
+    wordpress:
+      build:
+        context: ./wordpress
+        dockerfile: Dockerfile
+      volumes: 
+        - wordpressData:/var/www/html
+      networks:
+        - inception
+      depends_on:
+        - mariadb
+      restart: always
+      env_file:
+        - .env
+      secrets:
+        - database_pass
+        - wp_pass_root
+        - wp_pass
+
+    nginx:
+      build:
+        context: ./nginx
+        dockerfile: Dockerfile
+      volumes:
+        - wordpressData:/var/www/html
+      networks:
+        - inception
+      depends_on:
+        - wordpress
+      restart: always
+      env_file:
+        - .env
+      ports:
+      - "443:443"
+
+secrets:
+  database_pass:
+    file: secrets/database_pass.txt
+  wp_pass_root:
+    file: secrets/wp_pass_root.txt
+  wp_pass:
+    file: secrets/wp_pass.txt
+
+networks:
+  inception:
+
+volumes:
+  mariadbDatabase:
+  wordpressData:
