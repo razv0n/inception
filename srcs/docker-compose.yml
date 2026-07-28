@@ -2,7 +2,7 @@ services:
 
     mariadb:
       build:
-        context: ./mariadb
+        context: requirements/mariadb
         dockerfile: Dockerfile
       volumes:
         - mariadbDatabase:/var/lib/mysql
@@ -16,10 +16,10 @@ services:
 
     wordpress:
       build:
-        context: ./wordpress
+        context: requirements/wordpress
         dockerfile: Dockerfile
       volumes: 
-        - wordpressData:/var/www/html
+        - wordpress:/var/www/html
       networks:
         - inception
       depends_on:
@@ -34,10 +34,10 @@ services:
 
     nginx:
       build:
-        context: ./nginx
+        context: requirements/nginx
         dockerfile: Dockerfile
       volumes:
-        - wordpressData:/var/www/html
+        - wordpress:/var/www/html
       networks:
         - inception
       depends_on:
@@ -50,15 +50,26 @@ services:
 
 secrets:
   database_pass:
-    file: secrets/database_pass.txt
+    file: ../secrets/database_pass.txt
   wp_pass_root:
-    file: secrets/wp_pass_root.txt
+    file: ../secrets/wp_pass_root.txt
   wp_pass:
-    file: secrets/wp_pass.txt
+    file: ../secrets/wp_pass.txt
 
 networks:
   inception:
 
 volumes:
   mariadbDatabase:
-  wordpressData:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/mfahmi/data/mariadbDatabase
+
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/mfahmi/data/wordpress
