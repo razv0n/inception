@@ -10,12 +10,11 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 RUN sed -i 's|listen = .*|listen = 9000|' /etc/php/8.2/fpm/pool.d/www.conf
 
-COPY start.sh /start.sh
+COPY tools/start.sh /start.sh
 
 RUN chmod +x /start.sh
 
 CMD ["/start.sh"]
-
 
 
 #   ---reminder---
@@ -35,7 +34,6 @@ CMD ["/start.sh"]
         # ▼
 
 # MariaDB server
-
 
 
 # WordPress (PHP code)

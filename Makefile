@@ -1,6 +1,10 @@
 DOCKER_COMPOSE_FILE = docker compose -f srcs/docker-compose.yml
 
-build:
+makeDir:
+	@mkdir -p ~/data/mariadbDatabase
+	@mkdir -p ~/data/wordpress
+
+build: makeDir
 	$(DOCKER_COMPOSE_FILE) up -d --build
 
 up:

@@ -1,0 +1,4 @@
+srcs/.env
+.git
+
+#why we need secret if the docker shows the pass in incpect i can see them inside the container if i exec it in bash

@@ -10,7 +10,7 @@ if [ ! -f wp-config.php ]; then
     if [ ! -f wp-load.php ]; then
         wp core download --allow-root
     fi
-    wp   config create --dbname="${SQL_DATABASE}" \
+    wp  config create --dbname="${SQL_DATABASE}" \
                    --dbuser="${SQL_USER}" \
                     --dbpass="$(cat /run/secrets/database_pass)" \
                     --dbhost="mariadb"\
@@ -29,3 +29,6 @@ if [ ! -f wp-config.php ]; then
         --allow-root
 fi
 exec php-fpm8.2 -F
+
+#if condition check,  what is mysqladmin   
+#php-mysql is the PHP database driver (extension) that implements the MySQL/MariaDB client protocol.

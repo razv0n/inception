@@ -2,9 +2,7 @@
 
 set -e   #exit at the first error -e
 
-mkdir -p /run/mysqld
-chown mysql:mysql /run/mysqld
-su  -s /bin/sh  mysql -c "mysqld" &
+service mariadb start
 until mysqladmin ping --silent; do
     sleep 1
 done
@@ -16,7 +14,7 @@ GRANT ALL PRIVILEGES
 ON ${SQL_DATABASE}.*
 TO '${SQL_USER}'@'%';
 EOF
+
 mysqladmin shutdown
-mkdir -p /run/mysqld
-chown mysql:mysql /run/mysqld
-exec su -s /bin/sh mysql -c "mysqld"
+
+exec -su -s /bin/sh mysql -c "mysqld"
