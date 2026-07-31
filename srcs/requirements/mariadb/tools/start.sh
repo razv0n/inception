@@ -17,4 +17,4 @@ EOF
 
 mysqladmin shutdown
 
-exec -su -s /bin/sh mysql -c "mysqld"
+exec su -s /bin/sh mysql -c "mysqld"

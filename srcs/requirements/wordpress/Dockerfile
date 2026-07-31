@@ -14,7 +14,7 @@ COPY tools/start.sh /start.sh
 
 RUN chmod +x /start.sh
 
-CMD ["/start.sh"]
+ENTRYPOINT ["/start.sh"]
 
 
 #   ---reminder---

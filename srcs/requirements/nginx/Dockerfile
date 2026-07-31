@@ -10,7 +10,7 @@ COPY ./conf/nginx.conf /etc/nginx/sites-available/nginx.conf
 
 RUN ln -sf /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/nginx.conf
 
-CMD ["nginx","-g","daemon off;"]
+ENTRYPOINT ["nginx","-g","daemon off;"]
 
 # The biggest lesson
 
